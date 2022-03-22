@@ -1,0 +1,64 @@
+import { View, Text } from "react-native";
+import React from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeStackScreen from "./HomeStackScreen";
+const Tab = createBottomTabNavigator();
+export default function TabNavigator() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Home"
+          component={HomeStackScreen}
+          options={{
+            tabBarLabel: "Home",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons
+                name="home"
+                color={"black"}
+                style={styles.icons}
+                size={24}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={HomeStackScreen}
+          options={{
+            tabBarLabel: "Search",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons
+                name="ios-search"
+                size={24}
+                style={styles.icons}
+                color="black"
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  iconsAdd: {
+    position: "relative",
+    width: 60,
+    height: 60,
+    backgroundColor: "#9DD6EB",
+    borderRadius: 30,
+    alignItems: "center",
+    flexDirection: "column",
+    paddingTop: 6,
+    marginBottom: 15,
+  },
+  iconsAddText: {
+    color: "#fafafa",
+    paddingVertical: 10,
+  },
+});
