@@ -1,6 +1,7 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -25,6 +26,17 @@ export default function TabNavigator() {
             ),
           }}
         />
+         <Tab.Screen
+            name=" "
+            component={HomeStackScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <View style={styles.iconsAdd}>
+                  <FontAwesome name="shopping-basket" size={26} color="white" />
+                </View>
+              ),
+            }}
+          />
         <Tab.Screen
           name="Search"
           component={HomeStackScreen}
