@@ -4,14 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-function HomeScreen() {
-  return (
-    <View>
-      <Text>Enes</Text>
-      <Text>Elif</Text>
-    </View>
-  );
-}
+import HomeScreen from "../Screens/HomeScreen";
 const HomeStack = createNativeStackNavigator();
 const HomeStackScreen = () => {
   return (

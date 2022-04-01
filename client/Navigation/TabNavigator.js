@@ -5,12 +5,14 @@ import { FontAwesome } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import HomeStackScreen from "./HomeStackScreen";
+
 const Tab = createBottomTabNavigator();
 export default function TabNavigator() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name="Home"
           component={HomeStackScreen}
@@ -26,17 +28,17 @@ export default function TabNavigator() {
             ),
           }}
         />
-         <Tab.Screen
-            name=" "
-            component={HomeStackScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <View style={styles.iconsAdd}>
-                  <FontAwesome name="shopping-basket" size={26} color="white" />
-                </View>
-              ),
-            }}
-          />
+        <Tab.Screen
+          name=" "
+          component={HomeStackScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <View style={styles.iconsAdd}>
+                <FontAwesome name="shopping-basket" size={26} color="white" />
+              </View>
+            ),
+          }}
+        />
         <Tab.Screen
           name="Search"
           component={HomeStackScreen}
