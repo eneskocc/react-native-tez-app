@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -34,7 +35,7 @@ export default function TabNavigator() {
           options={{
             tabBarIcon: ({ color, size }) => (
               <View style={styles.iconsAdd}>
-                <FontAwesome name="shopping-basket" size={26} color="white" />
+                <MaterialIcons name="local-offer" size={35} color="white" />
               </View>
             ),
           }}
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
     flexDirection: "column",
-    paddingTop: 6,
+    paddingTop: 10,
     marginBottom: 15,
   },
   iconsAddText: {
