@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeStackScreen from "./HomeStackScreen";
+import OffersStackScreen from "./OffersStackScreen";
 
 const Tab = createBottomTabNavigator();
 export default function TabNavigator() {
@@ -31,7 +32,7 @@ export default function TabNavigator() {
         />
         <Tab.Screen
           name=" "
-          component={HomeStackScreen}
+          component={OffersStackScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
               <View style={styles.iconsAdd}>
