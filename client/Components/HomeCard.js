@@ -13,7 +13,7 @@ const HomeCard = () => {
     <View style={styles.card}>
       <Image
         style={styles.img}
-        source={require("../img/devlet.jpeg")}
+        source={require("../img/mac.webp")}
       />
       <TouchableOpacity style={styles.like}>
       <FontAwesome name="heart" size={28} color="white" />
