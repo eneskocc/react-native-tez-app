@@ -29,7 +29,7 @@ export default HomeCard;
 
 const styles = StyleSheet.create({
   card: {
-    width: 185,
+    width: '44%',
     height: 185,
     backgroundColor: "#fafafa",
     borderRadius: 20,
