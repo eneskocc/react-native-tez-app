@@ -9,7 +9,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeStackScreen from "./HomeStackScreen";
 import OffersStackScreen from "./OffersStackScreen";
-
+import ProfileScreen from "../Screens/ProfileScreen";
 const Tab = createBottomTabNavigator();
 export default function TabNavigator() {
   return (
@@ -43,7 +43,7 @@ export default function TabNavigator() {
         />
         <Tab.Screen
           name="Search"
-          component={HomeStackScreen}
+          component={ProfileScreen}
           options={{
             tabBarLabel: "Search",
             tabBarIcon: ({ color, size }) => (

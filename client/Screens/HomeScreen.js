@@ -1,15 +1,33 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import React from "react";
+import HomeCard from "../Components/HomeCard";
+import { Dimensions } from "react-native";
+const windowWidth = Dimensions.get("window").width;
 const HomeScreen = () => {
   return (
-    <View>
-      <Text>Enes</Text>
-      <Text>Elif</Text>
-    </View>
-  )
-}
+    <ScrollView>
+      <View style={styles.container}>
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+      </View>
+    </ScrollView>
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    width: windowWidth,
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+});
