@@ -15,11 +15,14 @@ const windowWidth = Dimensions.get("window").width;
 import OfferAddCard from "../Components/OfferAddCard";
 import Input from "../Components/Input";
 import MyButton from "../Components/MyButton";
+import SwitchSelector from "react-native-switch-selector";
 export default function OfferScreen() {
-  
   const [selectedValue, setSelectedValue] = useState("java");
-  
-
+  const options = [
+    { label: "1 GÜN", value: "1" },
+    { label: "2 GÜN", value: "1.5" },
+    { label: "1 HAFTA", value: "2" },
+  ];
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>
@@ -33,27 +36,29 @@ export default function OfferScreen() {
           {" "}
           Ne sattığınnı birkaç kelime ile tarif et
         </Text>
-        <Input
-          returnKeyType={"next"}
-          autoCapitalize="none"
-          placeholder="Başlık"
+        <View style={{ marginBottom: 15 }}>
+          <Input
+            returnKeyType={"next"}
+            autoCapitalize="none"
+            placeholder="Başlık"
+          />
+        </View>
+        <View style={{ marginBottom: 15 }}>
+          <Input
+            returnKeyType={"next"}
+            autoCapitalize="none"
+            placeholder="Fiyat"
+          />
+        </View>
+
+        <Text style={styles.switchText}>Yayın süresini seciniz</Text>
+        <SwitchSelector
+          options={options}
+          initial={0}
+          buttonColor={"#92BBD9"}
+          borderColor={"#92BBD9"}
+          onPress={(value) => console.log(`Call onPress with value: ${value}`)}
         />
-        <Input
-          returnKeyType={"next"}
-          autoCapitalize="none"
-          placeholder="Fiyat"
-        />
-        <Picker
-          selectedValue={selectedValue}
-          style={{ height: 200 }}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-        >
-          <Picker.Item label="SÜRE NE KADAR" value="224" />
-          <Picker.Item label="1 GÜN" value="24" />
-          <Picker.Item label="2 GÜN" value="48" />
-          <Picker.Item label="1 HAFTA" value="12" />
-          <Picker.Item label="1 AY" value="242 " />
-        </Picker>
         <MyButton textColor={"#fafafa"} bgColor={"#92BBD9"} text={"Yükle"} />
       </View>
     </View>
@@ -70,6 +75,13 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   inputText: {
+    marginTop: 15,
     fontSize: 10,
   },
+  switchText:{
+    fontSize:12,
+    paddingHorizontal:'30%',
+    paddingVertical:10,
+    marginVertical:10,
+  }
 });
