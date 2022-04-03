@@ -64,22 +64,41 @@ export default function OfferScreen() {
               }
             />
           </View>
-          <Text>Ne sattıyorsunuz</Text>
+          <View style={{ paddingTop: 20 }}>
+            <Text>Ne sattıyorsunuz</Text>
 
-          <Picker
-            selectedValue={selectedValue}
-            style={{ height: 50 }}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedValue(itemValue)
-            }
-          >
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker>
+            <Picker
+              selectedValue={selectedValue}
+              style={{ height: 50 }}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }
+            >
+              <Picker.Item label="Java" value="java" />
+              <Picker.Item label="JavaScript" value="js" />
+              <Picker.Item label="Java" value="java" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
+          </View>
+          <View style={{ paddingTop: 120 }}>
+            <Text>Hangi şehirde paylaşmak istiyorsunuz</Text>
 
+            <Picker
+              selectedValue={selectedValue}
+              style={{ height: 50 }}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }
+            >
+              <Picker.Item label="Balıkesir" value="java" />
+              <Picker.Item label="Bursa" value="js" />
+              <Picker.Item label="Denizli" value="java" />
+              <Picker.Item label="İzmir" value="js" />
+            </Picker>
+          </View>
+          <View style={{ marginVertical: 120 }}>
           <MyButton textColor={"#fafafa"} bgColor={"#92BBD9"} text={"Yükle"} />
+          </View>
         </View>
       </ScrollView>
     </View>
