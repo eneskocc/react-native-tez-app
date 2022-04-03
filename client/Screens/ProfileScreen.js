@@ -8,22 +8,42 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React from "react";
-
+import React,{useState} from "react";
+import * as ImagePicker from "expo-image-picker";
 const ProfileScreen = () => {
+  const [image, setImage] = useState(null);
+  const img = [];
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+    img.push(image);
+    console.log(img);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.headBackground} />
       
       <KeyboardAvoidingView behavior={"position"}>
+        <TouchableOpacity onPress={pickImage}>
         <ScrollView>
           <View style={styles.loginArea}>
-            <Image
-              style={styles.img}
-              source={require("../img/amok-kosucusu.jpeg")}
-            />
+          {image && 
+          <Image source={{ uri: image }} style={styles.img} />
+       }  
           </View>
         </ScrollView>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
   );
