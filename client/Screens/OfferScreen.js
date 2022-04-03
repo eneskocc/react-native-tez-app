@@ -14,25 +14,11 @@ import { Dimensions } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 import OfferAddCard from "../Components/OfferAddCard";
 import Input from "../Components/Input";
+import MyButton from "../Components/MyButton";
 export default function OfferScreen() {
-  const [image, setImage] = useState(null);
+  
   const [selectedValue, setSelectedValue] = useState("java");
-  const img = [];
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-    img.push(image);
-    console.log(img);
-  };
+  
 
   return (
     <View style={styles.container}>
@@ -59,7 +45,7 @@ export default function OfferScreen() {
         />
         <Picker
           selectedValue={selectedValue}
-          style={{ height: 200,}}
+          style={{ height: 200 }}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="SÜRE NE KADAR" value="224" />
@@ -68,6 +54,7 @@ export default function OfferScreen() {
           <Picker.Item label="1 HAFTA" value="12" />
           <Picker.Item label="1 AY" value="242 " />
         </Picker>
+        <MyButton textColor={"#fafafa"} bgColor={"#92BBD9"} text={"Yükle"} />
       </View>
     </View>
   );
@@ -75,6 +62,8 @@ export default function OfferScreen() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fafafa",
+    paddingTop: 15,
+    paddingHorizontal: 10,
   },
   input: {
     paddingHorizontal: 25,
