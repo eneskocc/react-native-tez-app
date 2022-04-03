@@ -25,42 +25,63 @@ export default function OfferScreen() {
   ];
   return (
     <View style={styles.container}>
-      <ScrollView horizontal={true}>
-        <OfferAddCard />
-        <OfferAddCard />
-        <OfferAddCard />
-        <OfferAddCard />
-      </ScrollView>
-      <View style={styles.input}>
-        <Text style={styles.inputText}>
-          {" "}
-          Ne sattığınnı birkaç kelime ile tarif et
-        </Text>
-        <View style={{ marginBottom: 15 }}>
-          <Input
-            returnKeyType={"next"}
-            autoCapitalize="none"
-            placeholder="Başlık"
-          />
-        </View>
-        <View style={{ marginBottom: 15 }}>
-          <Input
-            returnKeyType={"next"}
-            autoCapitalize="none"
-            placeholder="Fiyat"
-          />
-        </View>
+      <ScrollView horizontal={false}>
+        <ScrollView horizontal={true}>
+          <OfferAddCard />
+          <OfferAddCard />
+          <OfferAddCard />
+          <OfferAddCard />
+        </ScrollView>
+        <View style={styles.input}>
+          <Text style={styles.inputText}>
+            {" "}
+            Ne sattığınnı birkaç kelime ile tarif et
+          </Text>
+          <View style={{ marginBottom: 15 }}>
+            <Input
+              returnKeyType={"next"}
+              autoCapitalize="none"
+              placeholder="Başlık"
+            />
+          </View>
+          <View>
+            <Input
+              returnKeyType={"next"}
+              autoCapitalize="none"
+              placeholder="Fiyat"
+            />
+          </View>
 
-        <Text style={styles.switchText}>Yayın süresini seciniz</Text>
-        <SwitchSelector
-          options={options}
-          initial={0}
-          buttonColor={"#92BBD9"}
-          borderColor={"#92BBD9"}
-          onPress={(value) => console.log(`Call onPress with value: ${value}`)}
-        />
-        <MyButton textColor={"#fafafa"} bgColor={"#92BBD9"} text={"Yükle"} />
-      </View>
+          <View>
+            <Text style={styles.switchText}>Yayın süresini seciniz</Text>
+            <SwitchSelector
+              options={options}
+              initial={0}
+              buttonColor={"#92BBD9"}
+              borderColor={"#92BBD9"}
+              onPress={(value) =>
+                console.log(`Call onPress with value: ${value}`)
+              }
+            />
+          </View>
+          <Text>Ne sattıyorsunuz</Text>
+
+          <Picker
+            selectedValue={selectedValue}
+            style={{ height: 50 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }
+          >
+            <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+            <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
+
+          <MyButton textColor={"#fafafa"} bgColor={"#92BBD9"} text={"Yükle"} />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -78,10 +99,10 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontSize: 10,
   },
-  switchText:{
-    fontSize:12,
-    paddingHorizontal:'30%',
-    paddingVertical:10,
-    marginVertical:10,
-  }
+  switchText: {
+    fontSize: 12,
+    paddingHorizontal: "30%",
+    paddingVertical: 10,
+    marginVertical: 10,
+  },
 });
