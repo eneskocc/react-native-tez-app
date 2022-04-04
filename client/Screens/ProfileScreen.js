@@ -8,8 +8,12 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React,{useState} from "react";
+import React, { useState } from "react";
+import { Dimensions } from "react-native";
+const windowWidth = Dimensions.get("window").width;
 import * as ImagePicker from "expo-image-picker";
+import { Ionicons } from "@expo/vector-icons";
+import ProfileCard from "../Components/ProfileCard";
 const ProfileScreen = () => {
   const [image, setImage] = useState(null);
   const img = [];
@@ -22,8 +26,6 @@ const ProfileScreen = () => {
       quality: 1,
     });
 
-    
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
@@ -33,18 +35,28 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headBackground} />
-      
-      <KeyboardAvoidingView behavior={"position"}>
-        <TouchableOpacity onPress={pickImage}>
+      <TouchableOpacity onPress={pickImage}>
         <ScrollView>
           <View style={styles.loginArea}>
-          {image && 
-          <Image source={{ uri: image }} style={styles.img} />
-       }  
+            {image && <Image source={{ uri: image }} style={styles.img} />}
           </View>
         </ScrollView>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+      </TouchableOpacity>
+      <View style={styles.center}>
+        <Text>Enes KOÇ</Text>
+        <Text>
+          <Ionicons name="md-location-outline" size={20} color="black" />
+          Balılkesir
+        </Text>
+      </View>
+
+      <View style={styles.cardContainer}>
+        <ProfileCard name="Ürünler" />
+        <ProfileCard name="Teklif" />
+        <ProfileCard name="Gecmiş Teklifler" />
+        <ProfileCard name="Teklif" />
+        <ProfileCard name="Ayarlar" />
+      </View>
     </View>
   );
 };
@@ -58,8 +70,8 @@ const styles = StyleSheet.create({
     paddingVertical: 180,
   },
   img: {
-    width: '100%',
-    height: 220,
+    width: "100%",
+    height: 200,
     borderRadius: 110,
   },
   headBackground: {
@@ -70,26 +82,6 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#9DD6EB",
   },
-  logo0: {
-    flexDirection: "row",
-    textAlign: "center",
-    paddingHorizontal: 40,
-    marginBottom: 20,
-  },
-  logo1: {
-    textAlign: "center",
-    fontSize: 50,
-    fontWeight: "bold",
-    color: "#fafafa",
-  },
-  logo2: {
-    textAlign: "center",
-    fontSize: 50,
-    fontWeight: "bold",
-    backgroundColor: "#fafafa",
-    color: "#9DD6EB",
-    borderRadius: 20,
-  },
   logoDescription: {
     textAlign: "center",
     color: "#fafafa",
@@ -97,10 +89,10 @@ const styles = StyleSheet.create({
   loginArea: {
     textAlign: "center",
     marginHorizontal: 80,
-    flexDirection:'column',
-    alignItems:'center',
-    alignContent:'center',
-    padding:20,
+    flexDirection: "column",
+    alignItems: "center",
+    alignContent: "center",
+    padding: 20,
     marginVertical: 40,
     backgroundColor: "#fafafa",
     borderRadius: 120,
@@ -112,4 +104,15 @@ const styles = StyleSheet.create({
       height: 5,
     },
   },
+  cardContainer: {
+    width: windowWidth,
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+  center:{
+    flexDirection:'column',
+    textAlign:'center',
+    alignItems:'center',
+
+  }
 });
