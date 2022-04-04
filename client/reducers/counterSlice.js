@@ -4,6 +4,7 @@ import { fetchCount } from './counterAPI';
 const initialState = {
   value: 0,
   obje:[],
+  isLogin:false,
   favorite:[],
   status: 'idle',
 };
@@ -28,12 +29,8 @@ export const counterSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
-      state.obje.push('ELİF');
+     
+      state.isLogin =true;
     },
     decrement: (state,action) => {
         const removeIndex = state.obje.findIndex((item) => item.id === action.payload.id);
@@ -105,6 +102,7 @@ export const { increment, decrement,incrementFAV,decrementFAV, incrementByAmount
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state) => state.counter.value;
+export const selectLogin = (state) => state.counter.isLogin;
 export const selectObje = (state) => state.counter.obje;
 export const selectFavorite = (state) => state.counter.favorite;
 // We can also write thunks by hand, which may contain both sync and async logic.

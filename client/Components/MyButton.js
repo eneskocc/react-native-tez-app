@@ -19,7 +19,7 @@ export default class MyButton extends Component {
                         ]
                   );
             return (
-                  <TouchableOpacity style={[styles.button, { backgroundColor: this.props.bgColor }]} onPress={createTwoButtonAlert}>
+                  <TouchableOpacity style={[styles.button, { backgroundColor: this.props.bgColor }]} onPress={this.props.onPress}>
                         <Text style={[styles.text, { color: this.props.textColor }]}>{this.props.text}</Text>
                   </TouchableOpacity>
             );

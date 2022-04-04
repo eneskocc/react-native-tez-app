@@ -33,31 +33,33 @@ const ProfileScreen = () => {
     console.log(img);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.headBackground} />
-      <TouchableOpacity onPress={pickImage}>
-        <ScrollView>
-          <View style={styles.loginArea}>
-            {image && <Image source={{ uri: image }} style={styles.img} />}
-          </View>
-        </ScrollView>
-      </TouchableOpacity>
-      <View style={styles.center}>
-        <Text>Enes KOÇ</Text>
-        <Text>
-          <Ionicons name="md-location-outline" size={20} color="black" />
-          Balılkesir
-        </Text>
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.headBackground} />
+        <TouchableOpacity onPress={pickImage}>
+          <ScrollView>
+            <View style={styles.loginArea}>
+              {image && <Image source={{ uri: image }} style={styles.img} />}
+            </View>
+          </ScrollView>
+        </TouchableOpacity>
+        <View style={styles.center}>
+          <Text>Enes KOÇ</Text>
+          <Text>
+            <Ionicons name="md-location-outline" size={20} color="black" />
+            Balılkesir
+          </Text>
+        </View>
 
-      <View style={styles.cardContainer}>
-        <ProfileCard name="Ürünler" />
-        <ProfileCard name="Teklif" />
-        <ProfileCard name="Gecmiş Teklifler" />
-        <ProfileCard name="Teklif" />
-        <ProfileCard name="Ayarlar" />
+        <View style={styles.cardContainer}>
+          <ProfileCard name="Ürünler" navigateName="Products" icon="product-hunt"/>
+          <ProfileCard name="Teklif" navigateName="Offers" icon="local-offer"/>
+          <ProfileCard name="Gecmiş Teklifler" navigateName="Products" icon="product-hunt"/>
+          <ProfileCard name="Teklif" navigateName="Products" icon="product-hunt"/>
+          <ProfileCard name="Ayarlar" navigateName="Products" icon="product-hunt"/>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -109,10 +111,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: "row",
   },
-  center:{
-    flexDirection:'column',
-    textAlign:'center',
-    alignItems:'center',
-
-  }
+  center: {
+    flexDirection: "column",
+    textAlign: "center",
+    alignItems: "center",
+  },
 });

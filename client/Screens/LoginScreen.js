@@ -2,9 +2,22 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
 import Input from '../Components/Input';
 import MyButton from '../Components/MyButton';
-
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  decrement,
+  increment,
+  incrementByAmount,
+  incrementAsync,
+  incrementIfOdd,
+  selectCount,
+  selectObje,
+  selectLogin,
+} from '../reducers/counterSlice';
 
 export default function LoginScreen() {
+    const obje2 = useSelector(selectLogin);
+  console.log(obje2);
+  const dispatch = useDispatch();
     return (
         <View style={styles.container}>
             <View style={styles.headBackground} />
@@ -38,7 +51,8 @@ export default function LoginScreen() {
                         <MyButton
                             textColor={"#fafafa"}
                             bgColor={"#92BBD9"}
-                            text={"Sign in"} />
+                            text={"Sign in"}
+                            onPress={() => dispatch(increment(obje2))} />
                     </View>
 
                 </ScrollView>
@@ -68,7 +82,7 @@ const styles = StyleSheet.create({
     logo0: {
         flexDirection: 'row',
         textAlign: 'center',
-        paddingHorizontal: 40,
+        paddingHorizontal: 30,
         marginBottom: 20,
     },
     logo1: {

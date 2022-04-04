@@ -1,12 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./Navigation/TabNavigator";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
+import LoginScreen from "./Screens/LoginScreen";
 export default function App() {
+  
   return (
     <Provider store={store}>
       <TabNavigator />
