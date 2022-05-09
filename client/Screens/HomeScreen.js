@@ -7,16 +7,16 @@ const HomeScreen = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
-        <HomeCard />
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
+        <HomeCard props={'enes'}/>
       </View>
     </ScrollView>
   );

@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProfileScreen from '../Screens/ProfileScreen';
 import ProductsScreen from '../Screens/ProductsScreen';
 import UserOffersScreen from '../Screens/UserOffersScreen';
+import FavoriteScreen from '../Screens/FavoriteScreen';
 const ProifleStack = createNativeStackNavigator();
 const ProfileStackScreen = () => {
   return (
@@ -13,6 +14,7 @@ const ProfileStackScreen = () => {
       <ProifleStack.Screen name="Offer Screen" component={ProfileScreen} />
       <ProifleStack.Screen name="Products" component={ProductsScreen} />
       <ProifleStack.Screen name="Offers" component={UserOffersScreen} />
+      <ProifleStack.Screen name="Favorite" component={FavoriteScreen} />
     </ProifleStack.Navigator>
   )
 }

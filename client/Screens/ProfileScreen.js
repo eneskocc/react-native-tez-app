@@ -55,8 +55,8 @@ const ProfileScreen = () => {
           <ProfileCard name="Ürünler" navigateName="Products" icon="product-hunt"/>
           <ProfileCard name="Teklif" navigateName="Offers" icon="local-offer"/>
           <ProfileCard name="Gecmiş Teklifler" navigateName="Products" icon="product-hunt"/>
-          <ProfileCard name="Teklif" navigateName="Products" icon="product-hunt"/>
-          <ProfileCard name="Ayarlar" navigateName="Products" icon="product-hunt"/>
+          <ProfileCard name="Favoriler" navigateName="Favorite" icon="product-hunt"/>
+          <ProfileCard name="Ayarlar" navigateName="Favorite" icon="product-hunt"/>
         </View>
       </View>
     </ScrollView>
