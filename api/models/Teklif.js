@@ -17,6 +17,7 @@ const TeklifSchema = new Schema({
 		type: String,
 	},
 	aktifMi:Boolean,
+    teklifler:[],
 
 });
 
