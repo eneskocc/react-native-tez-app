@@ -20,6 +20,7 @@ import {
 import HomeStackScreen from "./HomeStackScreen";
 import OffersStackScreen from "./OffersStackScreen";
 import ProfileStackScreen from "./ProfileStackScreen";
+import LoginStackScreen from "./LoginStackScreen";
 import LoginScreen from "../Screens/LoginScreen";
 const Tab = createBottomTabNavigator();
 export default function TabNavigator() {
@@ -72,7 +73,7 @@ export default function TabNavigator() {
           />
         </Tab.Navigator>
       ) : (
-        <LoginScreen />
+        <LoginStackScreen />
       )}
     </NavigationContainer>
   );

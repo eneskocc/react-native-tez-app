@@ -10,11 +10,16 @@ router.get('/', (req, res, next) =>{
 });
 
 router.post('/register', (req, res, next) =>{
-  const {username,password}=req.body;
+  const {username,password,name,surname,date,city,teklifler}=req.body;
   bcrypt.hash(password, 10, (err, hash) =>{
     const user =new User({
       username,
-      password:hash
+      password:hash,
+	  name,
+	  surname,
+	  date,
+	  city,
+	  teklifler,
     });
     const promise=user.save();
   

@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   like: {
-    marginLeft: 185,
+    marginLeft: 155,
   },
   indirim: {
     borderRadius: 10,

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema  = mongoose.Schema;
-
+const Teklif=require('../models/Teklif');
 const TeklifSchema = new Schema({
 	name: {
 		type: String,
@@ -9,6 +9,7 @@ const TeklifSchema = new Schema({
 		type: Number,
 		
 	},
+    photos:[],
 	date:{
         type:Date,
         default:Date.now

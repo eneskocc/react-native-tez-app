@@ -7,7 +7,7 @@ const mongoose=require('mongoose');
 const bodyParser = require('body-parser');
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost:27017/movie-api',{
+mongoose.connect('mongodb://localhost:27017/sattim-gitti',{
         useNewUrlParser: true, 
         useUnifiedTopology: true,
         family: 4,
@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/movie-api',{
 });
 
 const indexRouter = require('./routes/index');
+const homeRouter = require('./routes/home');
 const movieRouter = require('./routes/movie');
 const directorRouter = require('./routes/director');
 
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api', verifyToken);
 app.use('/api/movie', movieRouter);
+app.use('/api/home', homeRouter);
 app.use('/api/director', directorRouter);
 
 // catch 404 and forward to error handler

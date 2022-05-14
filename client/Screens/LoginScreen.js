@@ -11,6 +11,7 @@ import {
 import Input from "../Components/Input";
 import MyButton from "../Components/MyButton";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import {
   decrement,
   increment,
@@ -23,6 +24,10 @@ import {
 } from "../reducers/counterSlice";
 
 export default function LoginScreen() {
+  const navigation = useNavigation();
+  function GoDetail() {
+    navigation.navigate("Register");
+  }
   const obje2 = useSelector(selectLogin);
   console.log(obje2);
   const dispatch = useDispatch();
@@ -65,7 +70,7 @@ export default function LoginScreen() {
         </ScrollView>
         <View style={styles.signupArea}>
           <Text>Dont have an account?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={GoDetail}>
             <Text>Sign Up</Text>
           </TouchableOpacity>
         </View>
