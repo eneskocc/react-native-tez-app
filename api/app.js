@@ -19,6 +19,7 @@ mongoose.connect('mongodb://localhost:27017/sattim-gitti',{
 
 const indexRouter = require('./routes/index');
 const homeRouter = require('./routes/home');
+const teklifRouter = require('./routes/teklif');
 const movieRouter = require('./routes/movie');
 const directorRouter = require('./routes/director');
 
@@ -48,6 +49,7 @@ app.use('/', indexRouter);
 app.use('/api', verifyToken);
 app.use('/api/movie', movieRouter);
 app.use('/api/home', homeRouter);
+app.use('/api/teklif', teklifRouter);
 app.use('/api/director', directorRouter);
 
 // catch 404 and forward to error handler

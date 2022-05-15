@@ -6,15 +6,17 @@ const Teklif = require("../models/Teklif");
 
 const upload = multer({ dest: 'uploads/' })
 
-app.post('/:filename', upload.single('avatar'), (req, res, next) => {
+app.post('/photo/:filename', upload.single('avatar'), (req, res, next) => {
     const { path, mimetype } = req.file 
     const img = fs.readFileSync(path)
+    console.log('path');
     const encodedImg = img.toString('base64')
     const finalImg = {
       contentType: mimetype,
       image:  new Buffer(encodedImg, 'base64')
     }
-    
+
+    console.log(finalImg);
     res.sendStatus(200)
   })
 

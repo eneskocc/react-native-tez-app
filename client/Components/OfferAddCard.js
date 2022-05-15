@@ -25,7 +25,7 @@ import { Ionicons } from "@expo/vector-icons";
 const OfferAddCard = (props) => {
   const [image, setImage] = useState(null);
   const obje2 = useSelector(selectPhotos);
-  console.log(obje2);
+
   const dispatch = useDispatch();
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -38,7 +38,9 @@ const OfferAddCard = (props) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
-      dispatch(incrementPhoto(image));
+      if(image!=null)
+        dispatch(incrementPhoto(image));
+      console.log(obje2);
     }
   };
 
