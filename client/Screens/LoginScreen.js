@@ -63,7 +63,7 @@ export default function LoginScreen() {
             <MyButton
               textColor={"#fafafa"}
               bgColor={"#92BBD9"}
-              text={"Sign in"}
+              text={"Giriş"}
               onPress={() => dispatch(increment(obje2))}
             />
           </View>

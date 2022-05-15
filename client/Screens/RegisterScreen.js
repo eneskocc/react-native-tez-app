@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native";
-import DatePicker from "react-native-date-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import Input from "../Components/Input";
 import MyButton from "../Components/MyButton";
 import { useSelector, useDispatch } from "react-redux";
@@ -30,11 +30,19 @@ export default function RegisterScreen() {
   function GoDetail() {
     navigation.navigate("Login");
   }
-  const [date, setDate] = useState(new Date())
-  const [open, setOpen] = useState(false)
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
   const obje2 = useSelector(selectLogin);
   console.log(obje2);
   const dispatch = useDispatch();
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+  console.log(currentDate);
+    setDate(currentDate);
+  };
+
+
+ 
   return (
     <View style={styles.container}>
       <View style={styles.headBackground} />
@@ -75,35 +83,24 @@ export default function RegisterScreen() {
               autoCapitalize="none"
               placeholder="Şehir"
             />
-
-            <Button title="Open" onPress={() => setOpen(true)} />
-            <DatePicker
-              modal
-              open={open}
-              date={date}
-              onConfirm={(date) => {
-                setOpen(false);
-                setDate(date);
-              }}
-              onCancel={() => {
-                setOpen(false);
-              }}
+  <Text>Doğum tarihiniz</Text>
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              onChange={onChange}
             />
 
             <MyButton
               textColor={"#fafafa"}
               bgColor={"#92BBD9"}
-              text={"Sign in"}
+              text={"Kaydol"}
               onPress={() => dispatch(increment(obje2))}
             />
           </View>
         </ScrollView>
-        <View style={styles.signupArea}>
-          <Text>Dont have an account?</Text>
-          <TouchableOpacity onPress={GoDetail}>
-            <Text>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
+        
       </KeyboardAvoidingView>
     </View>
   );
