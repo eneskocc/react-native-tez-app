@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from '@expo/vector-icons';
 const OfferAddCard = () => {
   const [image, setImage] = useState(null);
+  console.log(image);
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -21,6 +22,7 @@ const OfferAddCard = () => {
     <TouchableOpacity onPress={pickImage} style={styles.card}>
         <Ionicons name="add" size={104} color="black" />
       {image && 
+      
           <Image source={{ uri: image }} style={{ width: 100, height: 100 ,position:'absolute',borderRadius:15,top:8,left:8,}} />
        }  
     </TouchableOpacity>

@@ -10,6 +10,9 @@ const TeklifSchema = new Schema({
 		
 	},
     photos:[],
+    sure:{
+        type:Date,
+    },
 	date:{
         type:Date,
         default:Date.now

@@ -16,15 +16,6 @@ router.get("/:sehir", (req, res, next) => {
       res.json(err);
     });
 });
-router.post("/", (req, res, next) => {
-  const { name, price, photo, date, city, aktifMi } = req.body;
-  const teklif = new Teklif(req.body);
-  movie.save((err, data) => {
-    if (err) {
-      console.log(err);
-    }
-    res.json(data);
-  });
-});
+
 
 module.exports = router;
