@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { Button } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -14,6 +15,7 @@ import Input from "../Components/Input";
 import MyButton from "../Components/MyButton";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 import {
   decrement,
   increment,
@@ -31,18 +33,34 @@ export default function RegisterScreen() {
     navigation.navigate("Login");
   }
   const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
+  const [mode, setMode] = useState("date");
   const obje2 = useSelector(selectLogin);
   console.log(obje2);
   const dispatch = useDispatch();
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-  console.log(currentDate);
+    console.log(currentDate);
     setDate(currentDate);
   };
 
+  const [image, setImage] = useState(null);
+  const img = [];
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
- 
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+    img.push(image);
+    console.log(img);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headBackground} />
@@ -57,7 +75,18 @@ export default function RegisterScreen() {
       <KeyboardAvoidingView behavior={"position"}>
         <ScrollView>
           <View style={styles.loginArea}>
-            <Text style={styles.signInText}> Register </Text>
+            <View
+              style={{
+                flexDirection: "column",
+                alignContent: "center",
+                paddingHorizontal: 70,
+              }}
+            >
+              <TouchableOpacity onPress={pickImage}>
+                <Text style={styles.signInText}> Profil resimi yükle </Text>
+                {image && <Image source={{ uri: image }} style={styles.img} />}
+              </TouchableOpacity>
+            </View>
             <Input
               returnKeyType={"next"}
               autoCapitalize="none"
@@ -83,7 +112,7 @@ export default function RegisterScreen() {
               autoCapitalize="none"
               placeholder="Şehir"
             />
-  <Text>Doğum tarihiniz</Text>
+            <Text>Doğum tarihiniz</Text>
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
@@ -100,7 +129,6 @@ export default function RegisterScreen() {
             />
           </View>
         </ScrollView>
-        
       </KeyboardAvoidingView>
     </View>
   );
@@ -177,5 +205,12 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     bottom: 0,
+  },
+  img: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginHorizontal: 15,
+    marginVertical: 20,
   },
 });

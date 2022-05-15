@@ -9,6 +9,18 @@ import {
   Text,
   Picker,
 } from "react-native";
+import {
+  decrement,
+  increment,
+  incrementByAmount,
+  incrementAsync,
+  incrementIfOdd,
+  selectCount,
+  selectObje,
+  selectLogin,
+  selectPhotos,
+  incrementPhoto,
+} from "../reducers/counterSlice";
 import * as ImagePicker from "expo-image-picker";
 import { Dimensions } from "react-native";
 const windowWidth = Dimensions.get("window").width;
@@ -23,6 +35,8 @@ export default function OfferScreen() {
     { label: "2 GÜN", value: "1.5" },
     { label: "1 HAFTA", value: "2" },
   ];
+ 
+  
   return (
     <View style={styles.container}>
       <ScrollView horizontal={false}>

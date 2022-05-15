@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchCount } from './counterAPI';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { fetchCount } from "./counterAPI";
 
 const initialState = {
   value: 0,
-  obje:[],
-  isLogin:false,
-  favorite:[],
-  status: 'idle',
+  obje: [],
+  isLogin: false,
+  favorite: [],
+  photos: [],
+  status: "idle",
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -15,7 +16,7 @@ const initialState = {
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
 export const incrementAsync = createAsyncThunk(
-  'counter/fetchCount',
+  "counter/fetchCount",
   async (amount) => {
     const response = await fetchCount(amount);
     // The value we return becomes the `fulfilled` action payload
@@ -24,61 +25,69 @@ export const incrementAsync = createAsyncThunk(
 );
 
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     increment: (state) => {
-     
-      state.isLogin =true;
+      state.isLogin = true;
     },
-    decrement: (state,action) => {
-        const removeIndex = state.obje.findIndex((item) => item.id === action.payload.id);
-        let obj = state.obje[removeIndex];
-        if (obj.number === 1) {
-          console.log(obj.number);
-          state.obje.splice(removeIndex, 1);
-        } else {
-            state.obje.splice(removeIndex, 1);
-            state.obje.push({ ...action.payload, number: obj.number - 1 });
-        }
+    decrement: (state, action) => {
+      const removeIndex = state.obje.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      let obj = state.obje[removeIndex];
+      if (obj.number === 1) {
+        console.log(obj.number);
+        state.obje.splice(removeIndex, 1);
+      } else {
+        state.obje.splice(removeIndex, 1);
+        state.obje.push({ ...action.payload, number: obj.number - 1 });
+      }
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     incrementByAmount: (state, action) => {
-        const removeIndex = state.obje.findIndex((item) => item.id === action.payload.id);
-        
-        if (removeIndex === -1) {
-            state.obje.push(action.payload);
-        } else {
-          let obj = state.obje[removeIndex];
-          state.obje.splice(removeIndex, 1);
-          state.obje.push({ ...action.payload, number: obj.number + 1 });
-        }
-      
+      const removeIndex = state.obje.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      if (removeIndex === -1) {
+        state.obje.push(action.payload);
+      } else {
+        let obj = state.obje[removeIndex];
+        state.obje.splice(removeIndex, 1);
+        state.obje.push({ ...action.payload, number: obj.number + 1 });
+      }
     },
-    decrementFAV: (state,action) => {
-        const removeIndex = state.favorite.findIndex((item) => item.id === action.payload.id);
-        let obj = state.favorite[removeIndex];
-        if (obj.number === 1) {
-          console.log(obj.number);
-          state.favorite.splice(removeIndex, 1);
-        } else {
-            state.favorite.splice(removeIndex, 1);
-            state.favorite.push({ ...action.payload, number: obj.number - 1 });
-        }
+    decrementFAV: (state, action) => {
+      const removeIndex = state.favorite.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      let obj = state.favorite[removeIndex];
+      if (obj.number === 1) {
+        console.log(obj.number);
+        state.favorite.splice(removeIndex, 1);
+      } else {
+        state.favorite.splice(removeIndex, 1);
+        state.favorite.push({ ...action.payload, number: obj.number - 1 });
+      }
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     incrementFAV: (state, action) => {
-        const removeIndex = state.favorite.findIndex((item) => item.id === action.payload.id);
-        
-        if (removeIndex === -1) {
-            state.favorite.push(action.payload);
-        } else {
-          let obj = state.favorite[removeIndex];
-          state.favorite.splice(removeIndex, 1);
-          state.favorite.push({ ...action.payload, number: obj.number + 1 });
-        }
-      
+      const removeIndex = state.favorite.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      if (removeIndex === -1) {
+        state.favorite.push(action.payload);
+      } else {
+        let obj = state.favorite[removeIndex];
+        state.favorite.splice(removeIndex, 1);
+        state.favorite.push({ ...action.payload, number: obj.number + 1 });
+      }
+    },
+    incrementPhoto: (state, action) => {
+      state.photos.push(action.payload);
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -86,17 +95,24 @@ export const counterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(incrementAsync.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(incrementAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = "idle";
         state.value += action.payload;
         state.obje.push(action.payload);
       });
   },
 });
 
-export const { increment, decrement,incrementFAV,decrementFAV, incrementByAmount } = counterSlice.actions;
+export const {
+  increment,
+  decrement,
+  incrementFAV,
+  decrementFAV,
+  incrementByAmount,
+  incrementPhoto,
+} = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -105,6 +121,7 @@ export const selectCount = (state) => state.counter.value;
 export const selectLogin = (state) => state.counter.isLogin;
 export const selectObje = (state) => state.counter.obje;
 export const selectFavorite = (state) => state.counter.favorite;
+export const selectPhotos = (state) => state.counter.photos;
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
 export const incrementIfOdd = (amount) => (dispatch, getState) => {

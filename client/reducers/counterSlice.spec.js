@@ -34,6 +34,10 @@ import counterReducer, {
       const actual = counterReducer(initialState, incrementFAV());
       expect(actual.value).toEqual(4);
     });
+    it('should handle incrementPhoto', () => {
+      const actual = counterReducer(initialState, incrementPhoto());
+      expect(actual.value).toEqual(4);
+    });
     
   
     it('should handle incrementByAmount', () => {

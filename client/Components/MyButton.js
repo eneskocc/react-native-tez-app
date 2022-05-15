@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Alert } from 'react-native'
-import PropTypes from 'prop-types'
 
 export default class MyButton extends Component {
 
@@ -25,11 +24,7 @@ export default class MyButton extends Component {
             );
       }
 }
-MyButton.PropTypes = {
-      text: PropTypes.string.isRequired,
-      bgColor: PropTypes.string,
-      textColor: PropTypes.string,
-};
+
 const styles = StyleSheet.create({
       container: {
 
