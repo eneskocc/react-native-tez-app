@@ -14,10 +14,12 @@ import {
 } from "../reducers/counterSlice";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-const HomeCard = () => {
+const HomeCard = (props) => {
   const navigation = useNavigation();
   function GoDetail() {
-    navigation.navigate("Detail");
+    navigation.navigate("Detail", {
+      props: props,
+    });
   }
   const dispatch = useDispatch();
   return (

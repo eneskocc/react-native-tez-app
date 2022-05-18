@@ -78,7 +78,7 @@ const HomeScreen = () => {
           <ScrollView>
             <View style={styles.card}>
               {data1.map((item, index) => (
-                <HomeCard props={"enes"} key={item} />
+                <HomeCard props={item} key={item} />
               ))}
             </View>
           </ScrollView>

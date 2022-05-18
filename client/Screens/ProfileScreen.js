@@ -8,6 +8,18 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import {
+  decrement,
+  increment,
+  incrementByAmount,
+  incrementAsync,
+  incrementIfOdd,
+  selectCount,
+  selectObje,
+  selectLogin,
+  selectUser,
+} from "../reducers/counterSlice";
+import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
 const windowWidth = Dimensions.get("window").width;
@@ -15,6 +27,8 @@ import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileCard from "../Components/ProfileCard";
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
+  const token = useSelector(selectLogin);
   const [image, setImage] = useState(null);
   const img = [];
   const pickImage = async () => {
@@ -44,10 +58,10 @@ const ProfileScreen = () => {
           </ScrollView>
         </TouchableOpacity>
         <View style={styles.center}>
-          <Text>Enes KOÇ</Text>
+          <Text>{token.user.name} {token.user.surname}</Text>
           <Text>
             <Ionicons name="md-location-outline" size={20} color="black" />
-            Balılkesir
+            {token.user.city}
           </Text>
         </View>
 

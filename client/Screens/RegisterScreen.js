@@ -57,12 +57,14 @@ export default function RegisterScreen() {
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      quality: 0.1,
       base64: true,
       allowsEditing: false,
-      aspect: [4, 3],
+      aspect: [16, 9],
     });
 
     setImage(pickerResult);
+    console.log(image);
   };
   let imageUri = image ? `data:image/jpg;base64,${image.base64}` : null;
   imageUri && console.log({ uri: imageUri.slice(0, 100) });
@@ -70,7 +72,6 @@ export default function RegisterScreen() {
 
 
   const Register = async () => {
-    const imgBuf = image.base64.slice(0, 100);
     
     try {
       const response = await fetch("http://localhost:3000/register", {
@@ -82,7 +83,7 @@ export default function RegisterScreen() {
         body: JSON.stringify({
           username: username,
           password: password,
-          avatar: imgBuf,
+          avatar: image.base64,
           name: name,
           surname: surname,
           city: city,
