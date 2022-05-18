@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { Buffer } from "buffer";
 import { Button } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Input from "../Components/Input";
@@ -26,40 +27,76 @@ import {
   selectObje,
   selectLogin,
 } from "../reducers/counterSlice";
-
+import ImgToBase64 from "react-native-image-base64";
 export default function RegisterScreen() {
   const navigation = useNavigation();
   function GoDetail() {
     navigation.navigate("Login");
   }
+  
+  const [image, setImage] = useState(null);
+  const [username, SetUsername] = useState("kullanıcı adınız");
+  const [password, SetPassword] = useState('null');
+  const [name, SetName] = useState('İsminiz');
+  const [surname, SetSurname] = useState('Soyisminiz');
+  const [city, SetCity] = useState('Şehiriniz');
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState("date");
   const obje2 = useSelector(selectLogin);
-  console.log(obje2);
-  const dispatch = useDispatch();
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    console.log(currentDate);
-    setDate(currentDate);
-  };
 
-  const [image, setImage] = useState(null);
-  const img = [];
+  const dispatch = useDispatch();
+
+  const onChange = (event, selectedDate) => {
+    console.log(date);
+    const currentDate = selectedDate;
+    setDate(currentDate);
+   
+  };
+  
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      base64: true,
+      allowsEditing: false,
       aspect: [4, 3],
-      quality: 1,
     });
 
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-    img.push(image);
-    console.log(img);
+    setImage(pickerResult);
   };
+  let imageUri = image ? `data:image/jpg;base64,${image.base64}` : null;
+  imageUri && console.log({ uri: imageUri.slice(0, 100) });
+
+
+
+  const Register = async () => {
+    const imgBuf = image.base64.slice(0, 100);
+    
+    try {
+      const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          avatar: imgBuf,
+          name: name,
+          surname: surname,
+          city: city,
+          date:date,
+          teklifler: [],
+        }),
+      });
+      const json = await response.json();
+    } catch (error) {
+      console.error(error);
+    } finally {
+    }
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -84,34 +121,44 @@ export default function RegisterScreen() {
             >
               <TouchableOpacity onPress={pickImage}>
                 <Text style={styles.signInText}> Profil resimi yükle </Text>
-                {image && <Image source={{ uri: image }} style={styles.img} />}
+                {imageUri && (
+                  <Image source={{ uri: imageUri }} style={styles.img} />
+                )}
               </TouchableOpacity>
             </View>
-            <Input
+
+            <TextInput
               returnKeyType={"next"}
-              autoCapitalize="none"
-              placeholder="Kullanıcı Adı"
+              style={styles.input}
+              onChangeText={SetUsername}
+              value={username}
             />
-            <Input
+            <TextInput
               returnKeyType={"next"}
               secureTextEntry={true}
-              placeholder="Şifre"
+              style={styles.input}
+              onChangeText={SetPassword}
+              value={password}
             />
-            <Input
+            <TextInput
               returnKeyType={"next"}
-              autoCapitalize="none"
-              placeholder="İsim"
+              style={styles.input}
+              onChangeText={SetName}
+              value={name}
             />
-            <Input
-              returnKeyType={"go"}
-              autoCapitalize="none"
-              placeholder="Soyisim"
+            <TextInput
+              returnKeyType={"next"}
+              style={styles.input}
+              onChangeText={SetSurname}
+              value={surname}
             />
-            <Input
-              returnKeyType={"go"}
-              autoCapitalize="none"
-              placeholder="Şehir"
+            <TextInput
+              returnKeyType={"next"}
+              style={styles.input}
+              onChangeText={SetCity}
+              value={city}
             />
+
             <Text>Doğum tarihiniz</Text>
             <DateTimePicker
               testID="dateTimePicker"
@@ -120,12 +167,12 @@ export default function RegisterScreen() {
               is24Hour={true}
               onChange={onChange}
             />
-
+            
             <MyButton
               textColor={"#fafafa"}
               bgColor={"#92BBD9"}
               text={"Kaydol"}
-              onPress={() => dispatch(increment(obje2))}
+              onPress={Register}
             />
           </View>
         </ScrollView>
@@ -212,5 +259,16 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginHorizontal: 15,
     marginVertical: 20,
+  },
+  input: {
+    height: 40,
+    paddingHorizontal: 5,
+    borderWidth: 2,
+    borderRadius: 4,
+    borderColor: "#f1f1f1",
+    color: "#999",
+    marginBottom: 8,
+    fontSize: 15,
+    fontWeight: "600",
   },
 });

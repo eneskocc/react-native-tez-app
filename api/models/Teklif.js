@@ -5,22 +5,16 @@ const TeklifSchema = new Schema({
 	name: {
 		type: String,
 	},
+	user_id:Schema.Types.ObjectId,
 	price: {
 		type: Number,
 		
 	},
     photos:[],
-    sure:{
-        type:Date,
-    },
-	date:{
-        type:Date,
-        default:Date.now
-    },
+	sure:Number,
 	city: {
 		type: String,
 	},
-	aktifMi:Boolean,
     teklifler:[],
 
 });

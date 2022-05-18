@@ -14,7 +14,7 @@ import {
 } from "../reducers/counterSlice";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-const HomeCard = (props) => {
+const HomeCard = () => {
   const navigation = useNavigation();
   function GoDetail() {
     navigation.navigate("Detail");
@@ -22,10 +22,10 @@ const HomeCard = (props) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.card}>
-      <Image style={styles.img} source={require("../img/mac.webp")} />
+      <Image style={styles.img} source={require("../img/devlet.jpeg")} />
       <TouchableOpacity
         style={styles.like}
-        onPress={() => dispatch(incrementFAV(props))}
+        onPress={() => dispatch(incrementFAV('props'))}
       >
         <FontAwesome name="heart" size={28} color="white" />
       </TouchableOpacity>
@@ -61,5 +61,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 145,
     right: 15,
+  },
+  input: {
+    height: 40,
+    paddingHorizontal: 5,
+    borderWidth: 2,
+    borderRadius: 4,
+    borderColor: "#f1f1f1",
+    color: "#999",
+    marginBottom: 8,
+    fontSize: 15,
+    fontWeight: "600",
   },
 });

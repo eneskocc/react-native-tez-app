@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Teklif = require("../models/Teklif");
 
-router.get("/:sehir", (req, res, next) => {
-  var sehir = req.params.sehir;
+router.post("/", (req, res, next) => {
+  var sehir = req.body.sehir;
   const promise = Teklif.find({ city: sehir });
   promise
     .then((data) => {

@@ -10,11 +10,14 @@ router.get('/', (req, res, next) =>{
 });
 
 router.post('/register', (req, res, next) =>{
-  const {username,password,name,surname,date,city,teklifler}=req.body;
+  const {username,password,avatar,name,surname,date,city,teklifler}=req.body;
+  
+  console.log(avatar);
   bcrypt.hash(password, 10, (err, hash) =>{
     const user =new User({
       username,
       password:hash,
+	  avatar,
 	  name,
 	  surname,
 	  date,
@@ -63,7 +66,8 @@ router.post('/authenticate', (req, res) => {
 
 					res.json({
 						status: true,
-						token
+						token,
+						user,
 					})
 				}
 			});

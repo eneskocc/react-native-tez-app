@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -21,9 +21,12 @@ import {
   selectCount,
   selectObje,
   selectLogin,
+  incrementUser,
 } from "../reducers/counterSlice";
 
 export default function LoginScreen() {
+  const [username, SetUsername] = useState('kullanıcı adınız');
+  const [password, SetPassword] = useState(null);
   const navigation = useNavigation();
   function GoDetail() {
     navigation.navigate("Register");
@@ -31,6 +34,32 @@ export default function LoginScreen() {
   const obje2 = useSelector(selectLogin);
   console.log(obje2);
   const dispatch = useDispatch();
+
+  const Login = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/authenticate", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+      const json = await response.json();
+      console.log(json)
+      dispatch(increment(json));
+      console.log(json.user);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headBackground} />
@@ -50,21 +79,24 @@ export default function LoginScreen() {
               Unque Door No Eaisly Fill Your Entire Property Tax Using App{" "}
             </Text>
             <Text style={styles.signInText}> Sign in </Text>
-            <Input
-              returnKeyType={"next"}
-              autoCapitalize="none"
-              placeholder="Username"
+            <TextInput
+              style={styles.input}
+              onChangeText={SetUsername}
+              value={username}
             />
-            <Input
-              returnKeyType={"go"}
+            <TextInput
+              style={styles.input}
               secureTextEntry={true}
-              placeholder="Password"
+              onChangeText={SetPassword}
+              returnKeyType={"go"}
+              value={password}
             />
+           
             <MyButton
               textColor={"#fafafa"}
               bgColor={"#92BBD9"}
               text={"Giriş"}
-              onPress={() => dispatch(increment(obje2))}
+              onPress={Login}
             />
           </View>
         </ScrollView>
@@ -84,6 +116,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingVertical: 100,
+  },
+  input: {
+    height: 40,
+    paddingHorizontal: 5,
+    borderWidth: 2,
+    borderRadius: 4,
+    borderColor: "#f1f1f1",
+    color: "#999",
+    marginBottom: 8,
+    fontSize: 15,
+    fontWeight: "600",
   },
   headBackground: {
     position: "absolute",

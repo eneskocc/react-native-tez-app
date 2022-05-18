@@ -1,34 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const multer  = require('multer')
-const app     = express()
 const Teklif = require("../models/Teklif");
 
-const upload = multer({ dest: 'uploads/' })
 
-app.post('/photo/:filename', upload.single('avatar'), (req, res, next) => {
-    const { path, mimetype } = req.file 
-    const img = fs.readFileSync(path)
-    console.log('path');
-    const encodedImg = img.toString('base64')
-    const finalImg = {
-      contentType: mimetype,
-      image:  new Buffer(encodedImg, 'base64')
-    }
-
-    console.log(finalImg);
-    res.sendStatus(200)
-  })
 
 router.post("/", (req, res, next) => {
-  const { name,price,photos,date,city,aktifMi } = req.body;
-  const teklifr= new Teklif(req.body);
-  movie.save((err, data) => {
+  const { name,user_id,price,photos,date,city } = req.body;
+  const teklif= new Teklif(req.body);
+  teklif.save((err, data) => {
     if (err) {
       console.log(err);
     }
     res.json(data);
   });
 });
+
+
+router.get('/:user_id',(req,res,next)=>{
+  const promise=Teklif.findById(req.params.user_id);
+  promise.then((data) => {
+    if(!data){
+      next({message:'The teklif was not found',code:1109})
+    }
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
 
 module.exports = router;
