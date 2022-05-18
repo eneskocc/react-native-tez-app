@@ -1,5 +1,12 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import React,{useState} from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import React, { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Swiper from "../Components/Swipers";
@@ -19,11 +26,11 @@ import { useSelector, useDispatch } from "react-redux";
 const OfferDetailScreen = (props) => {
   const dispatch = useDispatch();
   const token = useSelector(selectLogin);
-  const teklif=props.route.params.props.props;
+  const teklif = props.route.params.props.props;
   const [deger, setDeger] = useState(null);
   const getTeklifVer = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/home", {
+      const response = await fetch("http://localhost:3000/api/teklifler", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -32,21 +39,20 @@ const OfferDetailScreen = (props) => {
         },
         body: JSON.stringify({
           user_id: token.user._id,
-          username:token.user.username,
-          teklif_id:teklif.teklif_id,
-          deger:deger,
+          username: token.user.username,
+          teklif_id: teklif.teklif_id,
+          deger: deger,
         }),
       });
       const json = await response.json();
-      setData1(json);
+   
       console.log(json);
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      
     }
   };
-
 
   return (
     <View style={styles.container}>
@@ -56,8 +62,7 @@ const OfferDetailScreen = (props) => {
       <View style={styles.tabView}>
         <Image style={styles.img} source={require("../img/devlet.jpeg")} />
         <View>
-        <Text>Enes koç</Text>
-        
+          <Text>Enes koç</Text>
         </View>
         <TouchableOpacity style={styles.like}>
           <FontAwesome name="heart" size={35} color="red" />
@@ -78,16 +83,16 @@ const OfferDetailScreen = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.price}>
-      <View style={{ marginTop: 10 }}>
-        <TextInput
-          returnKeyType={"next"}
-          style={styles.input}
-          onChangeText={setSehir}
-          value={sehir}
-        />
+        <View style={{ marginTop: 10 }}>
+          <TextInput
+            returnKeyType={"next"}
+            style={styles.input}
+            onChangeText={setDeger}
+            value={deger}
+          />
+        </View>
       </View>
-      </View>
-      <TouchableOpacity style={styles.teklif} onPress={getTeklifUser}>
+      <TouchableOpacity style={styles.teklif} onPress={getTeklifVer}>
         <View style={styles.teklif1}>
           <Text style={styles.teklifText}>Teklif ver</Text>
           <MaterialIcons name="local-offer" size={28} color="black" />
@@ -156,18 +161,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafa",
     paddingHorizontal: 20,
     paddingVertical: 10,
-    flexDirection: 'column',
-    alignItems: "center",
-    alignContent: "center",
-  
-  },
-  teklif1:{
-    flexDirection: 'row',
+    flexDirection: "column",
     alignItems: "center",
     alignContent: "center",
   },
-  teklifText:{
-    fontSize:25,
-    paddingHorizontal:20,
-  }
+  teklif1: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignContent: "center",
+  },
+  teklifText: {
+    fontSize: 25,
+    paddingHorizontal: 20,
+  },
 });

@@ -6,7 +6,7 @@ const Teklifler = require("../models/Teklifler");
 router.post("/", (req, res, next) => {
   const { user_id,username,teklif_id,deger } = req.body;
   const teklifler= new Teklifler(req.body);
-  movie.save((err, data) => {
+  teklifler.save((err, data) => {
     if (err) {
       console.log(err);
     }
