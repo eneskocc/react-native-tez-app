@@ -6,6 +6,7 @@ const logger = require('morgan');
 const mongoose=require('mongoose');
 const bodyParser = require('body-parser');
 mongoose.Promise = global.Promise;
+const fileUpload = require('express-fileupload');
 
 mongoose.connect('mongodb://localhost:27017/sattim-gitti',{
         useNewUrlParser: true, 
@@ -18,11 +19,12 @@ mongoose.connect('mongodb://localhost:27017/sattim-gitti',{
 });
 
 const indexRouter = require('./routes/index');
+const directorRouter = require('./routes/director');
 const homeRouter = require('./routes/home');
 const teklifRouter = require('./routes/teklif');
 const tekliflerRouter = require('./routes/teklifler');
 const movieRouter = require('./routes/movie');
-const directorRouter = require('./routes/director');
+
 
 const app = express();
 

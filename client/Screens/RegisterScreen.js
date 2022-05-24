@@ -56,40 +56,39 @@ export default function RegisterScreen() {
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      quality: 0.1,
-      base64: true,
-      allowsEditing: false,
-      aspect: [16, 9],
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
 
-    setImage(pickerResult);
-    console.log(image);
+    if (!result.cancelled) {
+      setImage(result.uri);
+      console.log(image);
+    }
   };
-  let imageUri = image ? `data:image/jpg;base64,${image.base64}` : null;
-  imageUri && console.log({ uri: imageUri.slice(0, 100) });
+  
 
 
 
   const Register = async () => {
     
     try {
-      const response = await fetch("http://localhost:3000/register", {
+      const formData = new FormData();
+      formData.append("myImage", {
+          uri: image,
+          name:"user.png", 
+          type: 'image/jpeg',
+      });
+      const response = await fetch("http://localhost:3000/photo", {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-          avatar: image.base64,
-          name: name,
-          surname: surname,
-          city: city,
-          date:date,
-          teklifler: [],
-        }),
+        formData,
+       
       });
       const json = await response.json();
     } catch (error) {
@@ -97,7 +96,7 @@ export default function RegisterScreen() {
     } finally {
     }
   };
-  
+ 
 
   return (
     <View style={styles.container}>
@@ -122,8 +121,8 @@ export default function RegisterScreen() {
             >
               <TouchableOpacity onPress={pickImage}>
                 <Text style={styles.signInText}> Profil resimi yükle </Text>
-                {imageUri && (
-                  <Image source={{ uri: imageUri }} style={styles.img} />
+                {image && (
+                  <Image source={{ uri: image }} style={styles.img} />
                 )}
               </TouchableOpacity>
             </View>
