@@ -22,6 +22,7 @@ import {
   selectCount,
   selectObje,
   selectLogin,
+  incrementFAV,
   selectUser,
 } from "../reducers/counterSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -108,7 +109,6 @@ const OfferDetailScreen = (props) => {
     }
   };
   useEffect(() => {
-    //Runs only on the first render
     getUser();
   }, []);
   return (
@@ -130,7 +130,7 @@ const OfferDetailScreen = (props) => {
                 {teklif.name} {teklif.price}{" TL"}
               </Text>
             </View>
-            <TouchableOpacity style={styles.like}>
+            <TouchableOpacity style={styles.like} onPress={() => dispatch(incrementFAV(teklif))}>
               <FontAwesome name="heart" size={35} color="red" />
             </TouchableOpacity>
           </View>

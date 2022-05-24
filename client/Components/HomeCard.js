@@ -27,7 +27,7 @@ const HomeCard = (props) => {
       <Image style={styles.img} source={require("../img/devlet.jpeg")} />
       <TouchableOpacity
         style={styles.like}
-        onPress={() => dispatch(incrementFAV('props'))}
+        onPress={() => dispatch(incrementFAV(props))}
       >
         <FontAwesome name="heart" size={28} color="white" />
       </TouchableOpacity>

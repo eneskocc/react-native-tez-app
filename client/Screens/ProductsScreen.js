@@ -26,7 +26,7 @@ import { useSelector, useDispatch } from "react-redux";
 const windowWidth = Dimensions.get("window").width;
 const ProductsScreen = () => {
   const [isLoading, setLoading] = useState(true);
-  const [data1, setData1] = useState(null);
+  const [data1, setData1] = useState([null]);
   const [sehir, setSehir] = useState("Sehir giriniz");
   const dispatch = useDispatch();
   const token = useSelector(selectLogin);

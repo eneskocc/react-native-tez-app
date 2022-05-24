@@ -5,7 +5,7 @@ const TekliflerCard = (props) => {
     console.log(props);
   return (
     <View style={styles.card}>
-      <Text>Kullancı adı {props.props.username}</Text>
+      <Text>Teklif veren Kullancı {props.props.username}</Text>
       <Text>verilen teklif {props.props.deger}</Text>
     </View>
   )
