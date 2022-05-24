@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect,componentDidMount } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Swiper from "../Components/Swipers";
@@ -32,7 +32,30 @@ const OfferDetailScreen = (props) => {
   const token = useSelector(selectLogin);
   const teklif = props.route.params.props.props;
   const [deger, setDeger] = useState(null);
+  const [user, setUser] = useState(null);
   const [teklifler, setTeklifler] = useState(null);
+  const getUser = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/home/user", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "x-access-token": token.token,
+        },
+        body: JSON.stringify({
+          user_id: teklif.user_id,
+        }),
+      });
+      const json = await response.json();
+      setUser(json);
+      console.log(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      
+    }
+  };
   const getTeklifVer = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/teklifler", {
@@ -58,6 +81,10 @@ const OfferDetailScreen = (props) => {
       
     }
   };
+  useEffect(() => {
+    //Runs only on the first render
+    getUser();
+  }, []);
   const getTeklifGetir = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/teklifler/getir", {
@@ -80,7 +107,7 @@ const OfferDetailScreen = (props) => {
       setLoading(false);
     }
   };
-  
+  console.log(user.name);
   return (
     <View style={styles.container}>
       <View style={styles.swiper}>
@@ -90,7 +117,7 @@ const OfferDetailScreen = (props) => {
       <View style={styles.tabView}>
         <Image style={styles.img} source={require("../img/devlet.jpeg")} />
         <View>
-          <Text>Enes koç</Text>
+          <Text>{user.name} {user.surname} </Text>
         </View>
         <TouchableOpacity style={styles.like}>
           <FontAwesome name="heart" size={35} color="red" />
@@ -132,7 +159,7 @@ const OfferDetailScreen = (props) => {
           <ScrollView>
             <View style={styles.card}>
               {teklifler.map((item, index) => (
-                <TekliflerCard props={item} key={item} />
+                <TekliflerCard props={item} key={index} />
               ))}
             </View>
           </ScrollView>
@@ -153,6 +180,7 @@ export default OfferDetailScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fafafa",
+    paddingBottom:200,
   },
   input: {
     height: 40,

@@ -28,5 +28,20 @@ router.post("/getir", (req, res, next) => {
       res.json(err);
     });
 });
+router.post("/getirUser", (req, res, next) => {
+  const promise = Teklifler.find({
+    user_id: req.body.user_id,
+});
+  promise
+    .then((data) => {
+      if (!data) {
+        next({ message: "The teklifler was not found", code: 1109 });
+      }
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
 
 module.exports = router;

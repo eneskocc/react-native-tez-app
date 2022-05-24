@@ -26,7 +26,7 @@ import { useSelector, useDispatch } from "react-redux";
 const windowWidth = Dimensions.get("window").width;
 const HomeScreen = () => {
   const [isLoading, setLoading] = useState(true);
-  const [data1, setData1] = useState([]);
+  const [data1, setData1] = useState(null);
   const [sehir, setSehir] = useState("Sehir giriniz");
   const dispatch = useDispatch();
   const token = useSelector(selectLogin);
@@ -78,7 +78,7 @@ const HomeScreen = () => {
           <ScrollView>
             <View style={styles.card}>
               {data1.map((item, index) => (
-                <HomeCard props={item} key={item} />
+                <HomeCard props={item} key={index} />
               ))}
             </View>
           </ScrollView>

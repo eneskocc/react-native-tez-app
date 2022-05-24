@@ -81,7 +81,7 @@ export default function RegisterScreen() {
           name:"user.png", 
           type: 'image/jpeg',
       });
-      const response = await fetch("http://localhost:3000/photo", {
+      const response = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {
           Accept: "application/json",

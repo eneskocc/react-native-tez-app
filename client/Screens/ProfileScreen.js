@@ -67,8 +67,7 @@ const ProfileScreen = () => {
 
         <View style={styles.cardContainer}>
           <ProfileCard name="Ürünler" navigateName="Products" icon="product-hunt"/>
-          <ProfileCard name="Teklif" navigateName="Offers" icon="product-hunt"/>
-          <ProfileCard name="Gecmiş Teklifler" navigateName="Products" icon="product-hunt"/>
+          <ProfileCard name="Teklifler" navigateName="Offers" icon="product-hunt"/>
           <ProfileCard name="Favoriler" navigateName="Favorite" icon="product-hunt"/>
           <ProfileCard name="Ayarlar" navigateName="Favorite" icon="product-hunt"/>
         </View>

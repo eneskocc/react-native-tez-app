@@ -15,13 +15,16 @@ export default TekliflerCard
 
 const styles = StyleSheet.create({
     card:{
-        width:'90%',
-        marginVertical:20,
-        marginHorizontal:20,
-        borderRadius:5,
-        backgroundColor:'#fafafa',
+        borderRadius: 10,
+        borderWidth: 3,
+        marginHorizontal: 35,
+        marginVertical:10,
+        borderColor: "#9DD6EB",
+        backgroundColor: "#fafafa",
+        paddingHorizontal: 20,
+        paddingVertical: 10,
         flexDirection: "column",
-    alignItems: "center",
-    alignContent: "center",
+        alignItems: "center",
+        alignContent: "center",
     }
 })
