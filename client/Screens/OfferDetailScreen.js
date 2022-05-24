@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
 } from "react-native";
-import React, { useState,useEffect,componentDidMount } from "react";
+import React, { useState, useEffect, componentDidMount } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Swiper from "../Components/Swipers";
@@ -28,6 +28,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TekliflerCard from "../Components/TekliflerCard";
 const OfferDetailScreen = (props) => {
   const [isLoading, setLoading] = useState(true);
+  const [isLoading2, setLoading2] = useState(true);
   const dispatch = useDispatch();
   const token = useSelector(selectLogin);
   const teklif = props.route.params.props.props;
@@ -53,7 +54,7 @@ const OfferDetailScreen = (props) => {
     } catch (error) {
       console.error(error);
     } finally {
-      
+      setLoading2(false);
     }
   };
   const getTeklifVer = async () => {
@@ -73,31 +74,30 @@ const OfferDetailScreen = (props) => {
         }),
       });
       const json = await response.json();
-   
+
       console.log(json);
     } catch (error) {
       console.error(error);
     } finally {
-      
     }
   };
-  useEffect(() => {
-    //Runs only on the first render
-    getUser();
-  }, []);
+
   const getTeklifGetir = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/teklifler/getir", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "x-access-token": token.token,
-        },
-        body: JSON.stringify({
-          teklif_id: teklif._id,
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/teklifler/getir",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": token.token,
+          },
+          body: JSON.stringify({
+            teklif_id: teklif._id,
+          }),
+        }
+      );
       const json = await response.json();
       setTeklifler(json);
       console.log(json);
@@ -107,53 +107,65 @@ const OfferDetailScreen = (props) => {
       setLoading(false);
     }
   };
-  console.log(user.name);
+  useEffect(() => {
+    //Runs only on the first render
+    getUser();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.swiper}>
         <Swiper />
       </View>
       <ScrollView>
-      <View style={styles.tabView}>
-        <Image style={styles.img} source={require("../img/devlet.jpeg")} />
-        <View>
-          <Text>{user.name} {user.surname} </Text>
+        {isLoading2 ? (
+          <ActivityIndicator />
+        ) : (
+          <View style={styles.tabView}>
+            <Image style={styles.img} source={require("../img/devlet.jpeg")} />
+            <View>
+              <Text>
+                {user.name} {user.surname}{" "}
+              </Text>
+              <Text>
+                {teklif.name} {teklif.price}{" TL"}
+              </Text>
+            </View>
+            <TouchableOpacity style={styles.like}>
+              <FontAwesome name="heart" size={35} color="red" />
+            </TouchableOpacity>
+          </View>
+        )}
+        <View style={styles.tabView}>
+          <TouchableOpacity style={styles.indirim}>
+            <Text>%10</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.indirim}>
+            <Text>%15</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.indirim}>
+            <Text>%20</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.indirim}>
+            <Text>%25</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.like}>
-          <FontAwesome name="heart" size={35} color="red" />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.tabView}>
-        <TouchableOpacity style={styles.indirim}>
-          <Text>%10</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.indirim}>
-          <Text>%15</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.indirim}>
-          <Text>%20</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.indirim}>
-          <Text>%25</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.price}>
-        <View style={{ marginTop: 10 }}>
-          <TextInput
-            returnKeyType={"next"}
-            style={styles.input}
-            onChangeText={setDeger}
-            value={deger}
-          />
+        <View style={styles.price}>
+          <View style={{ marginTop: 10 }}>
+            <TextInput
+              returnKeyType={"next"}
+              style={styles.input}
+              onChangeText={setDeger}
+              value={deger}
+            />
+          </View>
         </View>
-      </View>
-      <TouchableOpacity style={styles.teklif} onPress={getTeklifVer}>
-        <View style={styles.teklif1}>
-          <Text style={styles.teklifText}>Teklif ver</Text>
-          <MaterialIcons name="local-offer" size={28} color="black" />
-        </View>
-      </TouchableOpacity>
-      {isLoading ? (
+        <TouchableOpacity style={styles.teklif} onPress={getTeklifVer}>
+          <View style={styles.teklif1}>
+            <Text style={styles.teklifText}>Teklif ver</Text>
+            <MaterialIcons name="local-offer" size={28} color="black" />
+          </View>
+        </TouchableOpacity>
+        {isLoading ? (
           <ActivityIndicator />
         ) : (
           <ScrollView>
@@ -164,12 +176,12 @@ const OfferDetailScreen = (props) => {
             </View>
           </ScrollView>
         )}
-      <TouchableOpacity style={styles.teklif} onPress={getTeklifGetir}>
-        <View style={styles.teklif1}>
-          <Text style={styles.teklifText}>Teklifleri Getir</Text>
-          <MaterialIcons name="local-offer" size={28} color="black" />
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.teklif} onPress={getTeklifGetir}>
+          <View style={styles.teklif1}>
+            <Text style={styles.teklifText}>Teklifleri Getir</Text>
+            <MaterialIcons name="local-offer" size={28} color="black" />
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -180,7 +192,7 @@ export default OfferDetailScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fafafa",
-    paddingBottom:200,
+    paddingBottom: 200,
   },
   input: {
     height: 40,
@@ -231,7 +243,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 3,
     marginHorizontal: 35,
-    marginVertical:10,
+    marginVertical: 10,
     borderColor: "#9DD6EB",
     backgroundColor: "#fafafa",
     paddingHorizontal: 20,
