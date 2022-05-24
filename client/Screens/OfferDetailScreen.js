@@ -5,6 +5,8 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
@@ -23,11 +25,14 @@ import {
   selectUser,
 } from "../reducers/counterSlice";
 import { useSelector, useDispatch } from "react-redux";
+import TekliflerCard from "../Components/TekliflerCard";
 const OfferDetailScreen = (props) => {
+  const [isLoading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const token = useSelector(selectLogin);
   const teklif = props.route.params.props.props;
   const [deger, setDeger] = useState(null);
+  const [teklifler, setTeklifler] = useState(null);
   const getTeklifVer = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/teklifler", {
@@ -40,7 +45,7 @@ const OfferDetailScreen = (props) => {
         body: JSON.stringify({
           user_id: token.user._id,
           username: token.user.username,
-          teklif_id: teklif.teklif_id,
+          teklif_id: teklif._id,
           deger: deger,
         }),
       });
@@ -53,12 +58,35 @@ const OfferDetailScreen = (props) => {
       
     }
   };
-
+  const getTeklifGetir = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/teklifler/getir", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "x-access-token": token.token,
+        },
+        body: JSON.stringify({
+          teklif_id: teklif._id,
+        }),
+      });
+      const json = await response.json();
+      setTeklifler(json);
+      console.log(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
     <View style={styles.container}>
       <View style={styles.swiper}>
         <Swiper />
       </View>
+      <ScrollView>
       <View style={styles.tabView}>
         <Image style={styles.img} source={require("../img/devlet.jpeg")} />
         <View>
@@ -98,6 +126,24 @@ const OfferDetailScreen = (props) => {
           <MaterialIcons name="local-offer" size={28} color="black" />
         </View>
       </TouchableOpacity>
+      {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <ScrollView>
+            <View style={styles.card}>
+              {teklifler.map((item, index) => (
+                <TekliflerCard props={item} key={item} />
+              ))}
+            </View>
+          </ScrollView>
+        )}
+      <TouchableOpacity style={styles.teklif} onPress={getTeklifGetir}>
+        <View style={styles.teklif1}>
+          <Text style={styles.teklifText}>Teklifleri Getir</Text>
+          <MaterialIcons name="local-offer" size={28} color="black" />
+        </View>
+      </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
@@ -157,6 +203,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 3,
     marginHorizontal: 35,
+    marginVertical:10,
     borderColor: "#9DD6EB",
     backgroundColor: "#fafafa",
     paddingHorizontal: 20,

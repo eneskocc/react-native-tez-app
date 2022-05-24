@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   container: {
     width: windowWidth,
     backgroundColor: "#fafafa",
+    paddingBottom:140,
   },
   input: {
     height: 40,
