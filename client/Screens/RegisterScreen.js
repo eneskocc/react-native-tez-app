@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Platform,
 } from "react-native";
 import { Buffer } from "buffer";
 import { Button } from "react-native";
@@ -28,18 +29,20 @@ import {
   selectLogin,
 } from "../reducers/counterSlice";
 import ImgToBase64 from "react-native-image-base64";
+import axios from "axios";
 export default function RegisterScreen() {
   const navigation = useNavigation();
   function GoDetail() {
     navigation.navigate("Login");
   }
-  
+
   const [image, setImage] = useState(null);
+  const [url, setUrl] = useState(null);
   const [username, SetUsername] = useState("kullanıcı adınız");
-  const [password, SetPassword] = useState('null');
-  const [name, SetName] = useState('İsminiz');
-  const [surname, SetSurname] = useState('Soyisminiz');
-  const [city, SetCity] = useState('Şehiriniz');
+  const [password, SetPassword] = useState("null");
+  const [name, SetName] = useState("İsminiz");
+  const [surname, SetSurname] = useState("Soyisminiz");
+  const [city, SetCity] = useState("Şehiriniz");
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState("date");
   const obje2 = useSelector(selectLogin);
@@ -50,9 +53,7 @@ export default function RegisterScreen() {
     console.log(date);
     const currentDate = selectedDate;
     setDate(currentDate);
-   
   };
-  
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -65,38 +66,34 @@ export default function RegisterScreen() {
 
     if (!result.cancelled) {
       setImage(result.uri);
-      console.log(image);
     }
   };
-  
-
-
 
   const Register = async () => {
-    
     try {
+      console.log(image);
       const formData = new FormData();
       formData.append("myImage", {
-          uri: image,
-          name:"user.png", 
-          type: 'image/jpeg',
+        uri: Platform.OS === "android" ? image : image.replace("file://", ""),
+        name: "user.png",
+        type: "image/jpg",
       });
-      const response = await fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-        formData,
-       
-      });
-      const json = await response.json();
+      await axios
+        .post("http://localhost:3000/photo", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Accept: "application/json",
+          },
+        })
+        .then((response) => {
+          setUrl(response.data);
+          return response.data;
+        });
     } catch (error) {
       console.error(error);
     } finally {
     }
   };
- 
 
   return (
     <View style={styles.container}>
@@ -121,9 +118,7 @@ export default function RegisterScreen() {
             >
               <TouchableOpacity onPress={pickImage}>
                 <Text style={styles.signInText}> Profil resimi yükle </Text>
-                {image && (
-                  <Image source={{ uri: image }} style={styles.img} />
-                )}
+                {image && <Image source={{ uri: image }} style={styles.img} />}
               </TouchableOpacity>
             </View>
 
@@ -167,7 +162,7 @@ export default function RegisterScreen() {
               is24Hour={true}
               onChange={onChange}
             />
-            
+
             <MyButton
               textColor={"#fafafa"}
               bgColor={"#92BBD9"}

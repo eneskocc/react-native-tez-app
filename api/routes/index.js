@@ -2,23 +2,25 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const fileUpload = require("express-fileupload");
+router.use(fileUpload());
 const User = require("../models/User");
 /* GET home page. */
 router.get("/", (req, res, next) => {
   res.render("index", { title: "Express" });
 });
 
-router.post("/photo", (req, res, next) => {
+router.post("/photo", (req, res) => {
   let sampleFile;
   let uploadPath;
 
   sampleFile = req.files.myImage;
+  let name = (Math.random() + 1).toString(36).substring(2)+sampleFile.name;
 
-  uploadPath = "uploads/RESIMISIM.png";
+  uploadPath = 'uploads/'+name;
 
   sampleFile.mv(uploadPath, function (err) {
-    res.send(JSON.stringify({ STATUS: true, NAME: name }));
+    res.send(JSON.stringify({ STATUS: true,NAME:name}));
   });
 });
 
