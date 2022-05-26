@@ -30,6 +30,7 @@ import {
 } from "../reducers/counterSlice";
 import ImgToBase64 from "react-native-image-base64";
 import axios from "axios";
+
 export default function RegisterScreen() {
   const navigation = useNavigation();
   function GoDetail() {
@@ -69,9 +70,8 @@ export default function RegisterScreen() {
     }
   };
 
-  const Register = async () => {
+  const photo = async () => {
     try {
-      console.log(image);
       const formData = new FormData();
       formData.append("myImage", {
         uri: Platform.OS === "android" ? image : image.replace("file://", ""),
@@ -86,9 +86,39 @@ export default function RegisterScreen() {
           },
         })
         .then((response) => {
-          setUrl(response.data);
+          setUrl(response.data.NAME);
+          Register();
           return response.data;
         });
+    } catch (error) {
+      console.error(error);
+    } finally {
+    }
+  };
+  
+  const Register = async () => {
+    console.log(url);
+    try {
+      const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username:username,
+          password: password,
+          avatar:url,
+          name:name,
+          surname:surname,
+          date:date,
+          city:city,
+          teklifler:[],
+        }),
+      });
+      const json = await response.json();
+
+      console.log(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -167,7 +197,7 @@ export default function RegisterScreen() {
               textColor={"#fafafa"}
               bgColor={"#92BBD9"}
               text={"Kaydol"}
-              onPress={Register}
+              onPress={photo}
             />
           </View>
         </ScrollView>

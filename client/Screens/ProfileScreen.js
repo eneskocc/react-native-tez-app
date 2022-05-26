@@ -53,12 +53,17 @@ const ProfileScreen = () => {
         <TouchableOpacity onPress={pickImage}>
           <ScrollView>
             <View style={styles.loginArea}>
-              {image && <Image source={{ uri: image }} style={styles.img} />}
+            <Image
+        style={styles.img}
+        source={{ uri: 'http://localhost:3000/' + 'show/' + token.user.avatar }}
+      />
             </View>
           </ScrollView>
         </TouchableOpacity>
         <View style={styles.center}>
-          <Text>{token.user.name} {token.user.surname}</Text>
+          <Text>
+            {token.user.name} {token.user.surname}
+          </Text>
           <Text>
             <Ionicons name="md-location-outline" size={20} color="black" />
             {token.user.city}
@@ -66,10 +71,26 @@ const ProfileScreen = () => {
         </View>
 
         <View style={styles.cardContainer}>
-          <ProfileCard name="Ürünler" navigateName="Products" icon="product-hunt"/>
-          <ProfileCard name="Teklifler" navigateName="Offers" icon="product-hunt"/>
-          <ProfileCard name="Favoriler" navigateName="Favorite" icon="product-hunt"/>
-          <ProfileCard name="Ayarlar" navigateName="Favorite" icon="product-hunt"/>
+          <ProfileCard
+            name="Ürünler"
+            navigateName="Products"
+            icon="product-hunt"
+          />
+          <ProfileCard
+            name="Teklifler"
+            navigateName="Offers"
+            icon="product-hunt"
+          />
+          <ProfileCard
+            name="Favoriler"
+            navigateName="Favorite"
+            icon="product-hunt"
+          />
+          <ProfileCard
+            name="Ayarlar"
+            navigateName="Favorite"
+            icon="product-hunt"
+          />
         </View>
       </View>
     </ScrollView>
@@ -129,4 +150,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
   },
+  tinyLogo:{
+    width:30,
+    height:40,
+  }
 });

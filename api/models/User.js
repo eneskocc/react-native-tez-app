@@ -12,7 +12,8 @@ const UserSchema = new Schema({
 		minlength: 5,
 	},
 	avatar:{
-		type:Buffer
+		type:String,
+
 	},
 	name: {
 		type: String,

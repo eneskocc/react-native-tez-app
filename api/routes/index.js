@@ -15,15 +15,18 @@ router.post("/photo", (req, res) => {
   let uploadPath;
 
   sampleFile = req.files.myImage;
-  let name = (Math.random() + 1).toString(36).substring(2)+sampleFile.name;
+  let name = (Math.random() + 1).toString(36).substring(2) + sampleFile.name;
 
-  uploadPath = 'uploads/'+name;
+  uploadPath = "uploads/" + name;
 
   sampleFile.mv(uploadPath, function (err) {
-    res.send(JSON.stringify({ STATUS: true,NAME:name}));
+    res.send(JSON.stringify({ STATUS: true, NAME: name }));
   });
 });
-
+router.get("/show/:id", (req, res) => {
+  var path = require("path");
+  res.sendFile(path.resolve(__dirname + "./../uploads/" + req.params.id));
+});
 router.post("/register", (req, res, next) => {
   const { username, password, avatar, name, surname, date, city, teklifler } =
     req.body;

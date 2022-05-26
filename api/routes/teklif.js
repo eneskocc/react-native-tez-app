@@ -5,7 +5,7 @@ const Teklif = require("../models/Teklif");
 
 
 router.post("/", (req, res, next) => {
-  const { name,user_id,price,photos,date,city } = req.body;
+  const { name,user_id,price,photo,date,city } = req.body;
   const teklif= new Teklif(req.body);
   teklif.save((err, data) => {
     if (err) {

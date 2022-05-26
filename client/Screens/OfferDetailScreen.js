@@ -32,10 +32,12 @@ const OfferDetailScreen = (props) => {
   const [isLoading2, setLoading2] = useState(true);
   const dispatch = useDispatch();
   const token = useSelector(selectLogin);
-  const teklif = props.route.params.props.props;
+  const teklif = props.route.params.props;
+  console.log('aaa',teklif);
   const [deger, setDeger] = useState(null);
   const [user, setUser] = useState(null);
   const [teklifler, setTeklifler] = useState(null);
+
   const getUser = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/home/user", {
@@ -82,7 +84,7 @@ const OfferDetailScreen = (props) => {
     } finally {
     }
   };
-
+console.log(user);
   const getTeklifGetir = async () => {
     try {
       const response = await fetch(
@@ -111,17 +113,21 @@ const OfferDetailScreen = (props) => {
   useEffect(() => {
     getUser();
   }, []);
+  console.log(user);
   return (
     <View style={styles.container}>
       <View style={styles.swiper}>
-        <Swiper />
+      <Image
+        style={styles.img2}
+        source={{ uri: 'http://localhost:3000/' + 'show/' + teklif.photo }}
+      />
       </View>
       <ScrollView>
         {isLoading2 ? (
           <ActivityIndicator />
         ) : (
           <View style={styles.tabView}>
-            <Image style={styles.img} source={require("../img/devlet.jpeg")} />
+            <Image style={styles.img} source={{ uri: 'http://localhost:3000/' + 'show/' + user.avatar }} />
             <View>
               <Text>
                 {user.name} {user.surname}{" "}
@@ -208,12 +214,21 @@ const styles = StyleSheet.create({
   },
   swiper: {
     height: 200,
+    justifyContent:'center',
+    alignItems:'center',
   },
   img: {
     width: 70,
     height: 70,
     borderRadius: 35,
     marginRight: 25,
+  },
+  img2: {
+    width: '95%',
+    height: 200,
+    borderRadius: 15,
+    marginVertical:20,
+
   },
   tabView: {
     width: "100%",

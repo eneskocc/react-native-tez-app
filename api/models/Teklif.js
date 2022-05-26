@@ -10,7 +10,9 @@ const TeklifSchema = new Schema({
 		type: Number,
 		
 	},
-    photos:[],
+    photo: {
+		type: String,
+	},
 	sure:Number,
 	city: {
 		type: String,

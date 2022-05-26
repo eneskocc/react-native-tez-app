@@ -44,12 +44,18 @@ const HomeScreen = () => {
         }),
       });
       const json = await response.json();
+      
       setData1(json);
       console.log(json);
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      if(data1==null){
+        setLoading(true);
+      }else{
+        setLoading(false);
+      } 
+        
     }
   };
 
@@ -78,7 +84,7 @@ const HomeScreen = () => {
           <ScrollView>
             <View style={styles.card}>
               {data1.map((item, index) => (
-                <HomeCard props={item} key={index} />
+                <HomeCard item={item} key={index} />
               ))}
             </View>
           </ScrollView>
