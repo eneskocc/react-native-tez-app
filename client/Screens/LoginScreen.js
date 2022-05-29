@@ -25,7 +25,7 @@ import {
 } from "../reducers/counterSlice";
 
 export default function LoginScreen() {
-  const [username, SetUsername] = useState('kullanıcı adınız');
+  const [username, SetUsername] = useState(null);
   const [password, SetPassword] = useState(null);
   const navigation = useNavigation();
   function GoDetail() {
@@ -82,6 +82,7 @@ export default function LoginScreen() {
             <TextInput
               style={styles.input}
               onChangeText={SetUsername}
+              placeholder="kullanıcı adınız"
               value={username}
             />
             <TextInput

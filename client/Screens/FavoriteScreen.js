@@ -22,7 +22,7 @@ const FavoriteScreen = () => {
   return (
     <View style={styles.card}>
          {obje2.map((item, index) => (
-            <HomeCard key={item.id} props={'enes'}/>
+            <HomeCard key={item.id} item={item}/>
           ))}
     </View>
   )

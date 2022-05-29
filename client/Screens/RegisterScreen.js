@@ -39,11 +39,11 @@ export default function RegisterScreen() {
 
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
-  const [username, SetUsername] = useState("kullanıcı adınız");
-  const [password, SetPassword] = useState("null");
-  const [name, SetName] = useState("İsminiz");
-  const [surname, SetSurname] = useState("Soyisminiz");
-  const [city, SetCity] = useState("Şehiriniz");
+  const [username, SetUsername] = useState(null);
+  const [password, SetPassword] = useState(null);
+  const [name, SetName] = useState(null);
+  const [surname, SetSurname] = useState(null);
+  const [city, SetCity] = useState(null);
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState("date");
   const obje2 = useSelector(selectLogin);
@@ -156,6 +156,7 @@ export default function RegisterScreen() {
               returnKeyType={"next"}
               style={styles.input}
               onChangeText={SetUsername}
+              placeholder="kullanıcı adınız"
               value={username}
             />
             <TextInput
@@ -163,24 +164,28 @@ export default function RegisterScreen() {
               secureTextEntry={true}
               style={styles.input}
               onChangeText={SetPassword}
+              placeholder="Şifreniz"
               value={password}
             />
             <TextInput
               returnKeyType={"next"}
               style={styles.input}
               onChangeText={SetName}
+              placeholder="İsminiz"
               value={name}
             />
             <TextInput
               returnKeyType={"next"}
               style={styles.input}
               onChangeText={SetSurname}
+              placeholder="Soysminiz"
               value={surname}
             />
             <TextInput
               returnKeyType={"next"}
               style={styles.input}
               onChangeText={SetCity}
+              placeholder="Şehiriniz"
               value={city}
             />
 
