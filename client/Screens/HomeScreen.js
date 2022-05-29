@@ -27,7 +27,7 @@ const windowWidth = Dimensions.get("window").width;
 const HomeScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data1, setData1] = useState(null);
-  const [sehir, setSehir] = useState("Sehir giriniz");
+  const [sehir, setSehir] = useState(null);
   const dispatch = useDispatch();
   const token = useSelector(selectLogin);
   const getTeklif = async () => {
@@ -66,6 +66,7 @@ const HomeScreen = () => {
           returnKeyType={"next"}
           style={styles.input}
           onChangeText={setSehir}
+          placeholder="ŞEHİR GİRİNİZ"
           value={sehir}
         />
       </View>

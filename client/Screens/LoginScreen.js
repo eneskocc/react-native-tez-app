@@ -32,7 +32,7 @@ export default function LoginScreen() {
     navigation.navigate("Register");
   }
   const obje2 = useSelector(selectLogin);
-  console.log(obje2);
+ 
   const dispatch = useDispatch();
 
   const Login = async () => {

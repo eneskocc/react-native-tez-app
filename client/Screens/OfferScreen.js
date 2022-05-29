@@ -33,10 +33,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 export default function OfferScreen() {
-  const [name, SetName] = useState("ürün ismi");
-  const [price, SetPrice] = useState("Fiyat");
-  const [city, SetCity] = useState("Şehiriniz");
-  const [date, SetDate] = useState("gün sayısı yazınız");
+  const [name, SetName] = useState(null);
+  const [price, SetPrice] = useState(null);
+  const [city, SetCity] = useState(null);
+  const [date, SetDate] = useState(null);
   const dispatch = useDispatch();
   const token = useSelector(selectLogin);
   const user = useSelector(selectUser);
@@ -141,6 +141,7 @@ export default function OfferScreen() {
               returnKeyType={"next"}
               style={styles.input}
               onChangeText={SetName}
+              placeholder="Ürün ismi"
               value={name}
             />
           </View>
@@ -149,6 +150,7 @@ export default function OfferScreen() {
               returnKeyType={"next"}
               style={styles.input}
               onChangeText={SetPrice}
+              placeholder="Fiyat"
               value={price}
             />
           </View>
@@ -159,6 +161,7 @@ export default function OfferScreen() {
                 returnKeyType={"next"}
                 style={styles.input}
                 onChangeText={SetCity}
+                placeholder="Şehiriniz"
                 value={city}
               />
             </View>
@@ -168,6 +171,7 @@ export default function OfferScreen() {
                 returnKeyType={"next"}
                 style={styles.input}
                 onChangeText={SetDate}
+                placeholder="Gün sayısını yazınız"
                 value={date}
               />
             </View>
