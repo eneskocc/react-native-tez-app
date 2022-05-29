@@ -87,12 +87,14 @@ export default function RegisterScreen() {
         })
         .then((response) => {
           setUrl(response.data.NAME);
-          Register();
+
+         
           return response.data;
         });
     } catch (error) {
       console.error(error);
     } finally {
+      Register();
     }
   };
   
