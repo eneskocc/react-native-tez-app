@@ -44,9 +44,8 @@ const HomeScreen = () => {
         }),
       });
       const json = await response.json();
-      
       setData1(json);
-      console.log(json);
+      console.log(data1);
     } catch (error) {
       console.error(error);
     } finally {

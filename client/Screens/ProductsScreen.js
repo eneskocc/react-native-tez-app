@@ -65,7 +65,7 @@ const ProductsScreen = () => {
           <ScrollView>
             <View style={styles.card}>
               {data1.map((item, index) => (
-                <HomeCard props={item} key={index} />
+                <HomeCard item={item} key={index} />
               ))}
             </View>
           </ScrollView>

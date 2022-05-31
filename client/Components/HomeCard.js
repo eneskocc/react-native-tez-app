@@ -18,17 +18,17 @@ const HomeCard = (props) => {
   const navigation = useNavigation();
   function GoDetail() {
     navigation.navigate("Detail", {
-      props: props.item.item,
+      props: props.item,
     });
   }
   const dispatch = useDispatch();
   console.log(props)
   return (
     <View style={styles.card}>
-      <Image style={styles.img}  source={{ uri: 'http://localhost:3000/' + 'show/' + props.item.item.photo }} />
+      <Image style={styles.img}  source={{ uri: 'http://localhost:3000/' + 'show/' + props.item.photo }} />
       <TouchableOpacity
         style={styles.like}
-        onPress={() => dispatch(incrementFAV(props))}
+        onPress={() => dispatch(incrementFAV(props.item))}
       >
         <FontAwesome name="heart" size={28} color="white" />
       </TouchableOpacity>
